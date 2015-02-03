@@ -91,7 +91,6 @@ status_t BnCameraClient::onTransact(
             ALOGV("NOTIFY_CALLBACK");
             CHECK_INTERFACE(ICameraClient, data, reply);
             int32_t msgType = data.readInt32();
-            int32_t ext1    = data.readInt32();
             int32_t ext1 = data.readInt32();
             int32_t ext2 = data.readInt32();
             notifyCallback(msgType, ext1, ext2);
