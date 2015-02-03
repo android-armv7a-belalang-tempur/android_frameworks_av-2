@@ -274,7 +274,6 @@ bool AudioTrack::canOffloadTrack(
             //TODO: Use mAttributes and pass the value of content in this field
             mPcmTrackOffloadInfo.has_video = false;
             mPcmTrackOffloadInfo.is_streaming = false;
-            mPcmTrackOffloadInfo.use_small_bufs = true;
 
             decision = AudioSystem::isOffloadSupported(mPcmTrackOffloadInfo);
             ALOGI("TrackOffload: Pcm Track offloaded decided %s", decision?"true":"false");
