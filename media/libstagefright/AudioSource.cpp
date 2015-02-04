@@ -178,7 +178,7 @@ AudioSource::AudioSource( audio_source_t inputSource, const sp<MetaData>& meta )
     mSampleRate = sampleRate;
     if (!strcasecmp( mime, MEDIA_MIMETYPE_AUDIO_AMR_WB)) {
         mFormat = AUDIO_FORMAT_AMR_WB;
-        mMaxBufferSize = AMR_WB_FRAMESIZE*10;
+       // mMaxBufferSize = AMR_WB_FRAMESIZE*10;
     } else {
         CHECK(0);
     }
@@ -554,8 +554,8 @@ void AudioSource::queueInputBuffer_l(MediaBuffer *buffer, int64_t timeUs) {
     if ( mFormat == AUDIO_FORMAT_PCM_16_BIT && mSampleRate){
         recordDurationUs = ((1000000LL * (bufferSize / (2 * mRecord->channelCount()))) +
                     (mSampleRate >> 1)) / mSampleRate;
-    } else if ( mFormat == AUDIO_FORMAT_AMR_WB) {
-       recordDurationUs = (bufferSize/AMR_WB_FRAMESIZE)*20*1000;//20ms
+    //} else if ( mFormat == AUDIO_FORMAT_AMR_WB) {
+    //   recordDurationUs = (bufferSize/AMR_WB_FRAMESIZE)*20*1000;//20ms
     }
     timestampUs += recordDurationUs;
 
@@ -573,8 +573,8 @@ void AudioSource::queueInputBuffer_l(MediaBuffer *buffer, int64_t timeUs) {
     }
     mPrevSampleTimeUs = timestampUs;
     if (mFormat == AUDIO_FORMAT_AMR_WB)
-        mNumFramesReceived += buffer->range_length() / AMR_WB_FRAMESIZE;
-    else
+    //    mNumFramesReceived += buffer->range_length() / AMR_WB_FRAMESIZE;
+   // else
         mNumFramesReceived += buffer->range_length() / sizeof(int16_t);
     mBuffersReceived.push_back(buffer);
     mFrameAvailableCondition.signal();
